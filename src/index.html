@@ -1,0 +1,136 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>CryptoSeed</title>
+
+    <link rel="stylesheet" href="css/material.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="cs-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+    <!--<header class="cs-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">CryptoSeed</span>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+    </header>-->
+    <div class="cs-ribbon"></div>
+    <main class="cs-main mdl-layout__content">
+        <div class="cs-container mdl-grid">
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+            <div class="cs-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                <!--<h5>CryptoSeed ist ein Seed Generator basierend auf <a target="_blank" href="https://github.com/iancoleman/bip39">Ian Coleman's BIP39 Tool</a>.</h5>-->
+                <h4>CryptoSeed Generator</h4>
+                <div id="info-text">
+                    <br/>
+                    <p>Mithilfe von unserem CryptoSeed Generator kannst du dir einen zufälligen "Seed Phrase" erstellen um deine eigenen Krypto Geldbörsen zu betreiben.</p>
+                    <p>CryptoSeed erstellt dir alle notwendigen Informationen um CryptoGate sowie deine eigenen Geldbörsen einzurichten.</p>
+                    <p>Als privater Hauptschlüssel dient hierbei der angezeigte "Seed Phrase" den Du mithilfe von CryptoSeed generierst.</p>
+                    <p>Bitte führe CryptoSeed nur auf deinen eigenen Rechner aus und sichere alle angezeigten Schlüssel im nächsten Schritt.</p>
+                    <br/>
+
+                    <button id="generate" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        Seed Phrase generieren
+                    </button>
+                </div>
+
+                <div id="generated-data" style="display: none;">
+
+                    <div style="width: 100%; background-color: #FFF9C4; padding: 16px; border-radius: 2px; color: #212121;">
+                        <b>Wichtig! </b>Verlierst du deinen privaten Hauptschlüssel / Seed Phrase kannst du nicht mehr auf deine Krypto Konten zugreifen!
+                    </div>
+                    <br/>
+
+                    <button id="download" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        ZIP Archiv mit privaten Schlüsseln und Electrum Geldbörsen speichern
+                    </button>
+
+                    <h6>Privater Hauptschlüssel / Seed Phrase (BIP39)</h6>
+                    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                        <input class="mdl-textfield__input" type="text" id="phrase" value="" readonly="readonly" style="width: 96%">
+                        <label class="mdl-textfield__label" for="phrase"></label>
+                        <button title="In Zwischenablage kopieren" data-clipboard-target="#phrase" class="btn-clipboard mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="right: 0;">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAAhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvNQpgdIAAAAG3RSTlMAAQIDBQYHCAkKC0xddIWir7zBxcfP1+Lo6/Hm+jJbAAAAW0lEQVQYV43Lyw5AMABE0SlFvd+l5v//E1W0sXE3k5xkMNMsZ4YaNjK1m5E3PH1AeaCkLKiTFwQQsRrjENB2IoAoX2sPMB27+QB7+wFlc+SD7QP9dSQHBxAuYAexpgyYoIxJeQAAAABJRU5ErkJggg==" />
+                        </button>
+                    </div>
+
+                    <h6>BTC Öffentlicher Hauptschlüssel BIP49 <small>P2SH-Segwit m/49/0/0 (P2WPKH-P2SH)</small></h6>
+                    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                        <input class="mdl-textfield__input" type="text" id="btc-pub-key" value="" readonly="readonly" style="width: 96%">
+                        <label class="mdl-textfield__label" for="btc-pub-key"></label>
+                        <button title="In Zwischenablage kopieren" data-clipboard-target="#btc-pub-key" class="btn-clipboard mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="right: 0;">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAAhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvNQpgdIAAAAG3RSTlMAAQIDBQYHCAkKC0xddIWir7zBxcfP1+Lo6/Hm+jJbAAAAW0lEQVQYV43Lyw5AMABE0SlFvd+l5v//E1W0sXE3k5xkMNMsZ4YaNjK1m5E3PH1AeaCkLKiTFwQQsRrjENB2IoAoX2sPMB27+QB7+wFlc+SD7QP9dSQHBxAuYAexpgyYoIxJeQAAAABJRU5ErkJggg==" />
+                        </button>
+                    </div>
+
+                    <h6>LTC Öffentlicher Hauptschlüssel (BIP49) <small>P2SH-Segwit m/49/2/0 (P2WPKH-P2SH)</small></h6>
+                    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                        <input class="mdl-textfield__input" type="text" id="ltc-pub-key" value="" readonly="readonly" style="width: 96%">
+                        <label class="mdl-textfield__label" for="ltc-pub-key"></label>
+                        <button title="In Zwischenablage kopieren" data-clipboard-target="#ltc-pub-key" class="btn-clipboard mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="right: 0;">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAAhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvNQpgdIAAAAG3RSTlMAAQIDBQYHCAkKC0xddIWir7zBxcfP1+Lo6/Hm+jJbAAAAW0lEQVQYV43Lyw5AMABE0SlFvd+l5v//E1W0sXE3k5xkMNMsZ4YaNjK1m5E3PH1AeaCkLKiTFwQQsRrjENB2IoAoX2sPMB27+QB7+wFlc+SD7QP9dSQHBxAuYAexpgyYoIxJeQAAAABJRU5ErkJggg==" />
+                        </button>
+                    </div>
+
+                    <h6>BCH Öffentlicher Hauptschlüssel (BIP44) <small>m/44/145/0 P2PKH</small></h6>
+                    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                        <input class="mdl-textfield__input" type="text" id="bch-pub-key" value="" readonly="readonly" style="width: 96%">
+                        <label class="mdl-textfield__label" for="bch-pub-key"></label>
+                        <button title="In Zwischenablage kopieren" data-clipboard-target="#bch-pub-key" class="btn-clipboard mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="right: 0;">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAAhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvNQpgdIAAAAG3RSTlMAAQIDBQYHCAkKC0xddIWir7zBxcfP1+Lo6/Hm+jJbAAAAW0lEQVQYV43Lyw5AMABE0SlFvd+l5v//E1W0sXE3k5xkMNMsZ4YaNjK1m5E3PH1AeaCkLKiTFwQQsRrjENB2IoAoX2sPMB27+QB7+wFlc+SD7QP9dSQHBxAuYAexpgyYoIxJeQAAAABJRU5ErkJggg==" />
+                        </button>
+                    </div>
+
+                    <h6>DASH Öffentlicher Hauptschlüssel (BIP44) <small>m/44/5/0 P2PKH</small></h6>
+                    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                        <input class="mdl-textfield__input" type="text" id="dash-pub-key" value="" readonly="readonly" style="width: 96%">
+                        <label class="mdl-textfield__label" for="dash-pub-key"></label>
+                        <button title="In Zwischenablage kopieren" data-clipboard-target="#dash-pub-key" class="btn-clipboard mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="right: 0;">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAVFBMVEUAAAAhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvMhlvNQpgdIAAAAG3RSTlMAAQIDBQYHCAkKC0xddIWir7zBxcfP1+Lo6/Hm+jJbAAAAW0lEQVQYV43Lyw5AMABE0SlFvd+l5v//E1W0sXE3k5xkMNMsZ4YaNjK1m5E3PH1AeaCkLKiTFwQQsRrjENB2IoAoX2sPMB27+QB7+wFlc+SD7QP9dSQHBxAuYAexpgyYoIxJeQAAAABJRU5ErkJggg==" />
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/material.min.js"></script>
+<script src="js/polyfill.es6.js"></script>
+<script src="js/basex.js"></script>
+<script src="js/unorm.js"></script>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap-3.3.7.js"></script>
+<script src="js/levenshtein.js"></script>
+<script src="js/kjua-0.1.1.min.js"></script>
+<script src="js/bitcoinjs-3.3.2.js"></script>
+<script src="js/bitcoinjs-extensions.js"></script>
+<script src="js/bitcoinjs-bip38-2.0.2.js"></script>
+<script src="js/segwit-parameters.js"></script>
+<script src="js/ethereumjs-util.js"></script>
+<script src="js/ripple-util.js"></script>
+<script src="js/bchaddrjs-0.2.1.js"></script>
+<script src="js/sjcl-bip39.js"></script>
+<script src="js/wordlist_english.js"></script>
+<script src="js/wordlist_japanese.js"></script>
+<script src="js/wordlist_spanish.js"></script>
+<script src="js/wordlist_chinese_simplified.js"></script>
+<script src="js/wordlist_chinese_traditional.js"></script>
+<script src="js/wordlist_french.js"></script>
+<script src="js/wordlist_italian.js"></script>
+<script src="js/wordlist_korean.js"></script>
+<script src="js/jsbip39.js"></script>
+<script src="js/biginteger.js"></script>
+<script src="js/zxcvbn.js"></script>
+<script src="js/entropy.js"></script>
+<script src="js/jszip.min.js"></script>
+<script src="js/FileSaver.min.js"></script>
+<script src="js/clipboard.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
