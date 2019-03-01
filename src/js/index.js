@@ -383,19 +383,19 @@
 
     function download() {
         var zip = new JSZip();
-        zip.file("Schlüssel.txt", "Privater Hauptschlüssel / Seed Phrase: " + el_phrase.val() +"\r\n\n" +
-            "BTC Privater Hauptschlüssel: "+btc_priv_key+"\r\n" +
-            "BTC Öffentlicher Hauptschlüssel: "+btc_pub_key+"\r\n" +
-            "LTC Privater Hauptschlüssel: "+ltc_priv_key+"\r\n" +
-            "LTC Öffentlicher Hauptschlüssel: "+ltc_pub_key+"\r\n" +
-            "DASH Privater Hauptschlüssel: "+dash_priv_key+"\r\n" +
-            "DASH Öffentlicher Hauptschlüssel: "+dash_pub_key+"\r\n" +
-            "BCH Privater Hauptschlüssel: "+bch_priv_key+"\r\n" +
-            "BCH Öffentlicher Hauptschlüssel: "+bch_pub_key+"\r\n" +
+        zip.file("seed-und-privatekey.txt", "Seed Phrase: " + el_phrase.val() +"\r\n\n" +
+            "BTC Private Key: "+btc_priv_key+"\r\n" +
+            "BTC Public Key: "+btc_pub_key+"\r\n" +
+            "LTC Private Key: "+ltc_priv_key+"\r\n" +
+            "LTC Public Key: "+ltc_pub_key+"\r\n" +
+            "DASH Private Key: "+dash_priv_key+"\r\n" +
+            "DASH Public Key: "+dash_pub_key+"\r\n" +
+            "BCH Private Key: "+bch_priv_key+"\r\n" +
+            "BCH Public Key: "+bch_pub_key+"\r\n" +
             "");
 
 
-        var wallets = zip.folder("Electrum-Geldbörsen");
+        var wallets = zip.folder("electrum-wallets");
         wallets.file("btc_electrum_wallet.dat", btc_electrum_wallet(btc_priv_key, btc_pub_key));
         wallets.file("ltc_electrum_wallet.dat", ltc_electrum_wallet(ltc_priv_key, ltc_pub_key));
         wallets.file("bch_electrum_wallet.dat", bch_electrum_wallet(bch_priv_key, bch_pub_key));

@@ -114,7 +114,7 @@ h6 small {
                         ZIP Archiv mit privaten Schlüsseln und Electrum Geldbörsen speichern
                     </button>
 
-                    <h6>Privater Hauptschlüssel / Seed Phrase (BIP39)</h6>
+                    <h6>Seed Phrase (BIP39)</h6>
                     <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
                         <input class="mdl-textfield__input" type="text" id="phrase" value="" readonly="readonly" style="width: 96%">
                         <label class="mdl-textfield__label" for="phrase"></label>
@@ -123,7 +123,7 @@ h6 small {
                         </button>
                     </div>
 
-                    <h6>BTC Öffentlicher Hauptschlüssel BIP49 <small>P2SH-Segwit m/49/0/0 (P2WPKH-P2SH)</small></h6>
+                    <h6>BTC Public Key BIP49 <small>P2SH-Segwit m/49/0/0 (P2WPKH-P2SH)</small></h6>
                     <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
                         <input class="mdl-textfield__input" type="text" id="btc-pub-key" value="" readonly="readonly" style="width: 96%">
                         <label class="mdl-textfield__label" for="btc-pub-key"></label>
@@ -132,7 +132,7 @@ h6 small {
                         </button>
                     </div>
 
-                    <h6>LTC Öffentlicher Hauptschlüssel (BIP49) <small>P2SH-Segwit m/49/2/0 (P2WPKH-P2SH)</small></h6>
+                    <h6>LTC Public Key (BIP49) <small>P2SH-Segwit m/49/2/0 (P2WPKH-P2SH)</small></h6>
                     <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
                         <input class="mdl-textfield__input" type="text" id="ltc-pub-key" value="" readonly="readonly" style="width: 96%">
                         <label class="mdl-textfield__label" for="ltc-pub-key"></label>
@@ -141,7 +141,7 @@ h6 small {
                         </button>
                     </div>
 
-                    <h6>BCH Öffentlicher Hauptschlüssel (BIP44) <small>m/44/145/0 P2PKH</small></h6>
+                    <h6>BCH Public Key (BIP44) <small>m/44/145/0 P2PKH</small></h6>
                     <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
                         <input class="mdl-textfield__input" type="text" id="bch-pub-key" value="" readonly="readonly" style="width: 96%">
                         <label class="mdl-textfield__label" for="bch-pub-key"></label>
@@ -150,7 +150,7 @@ h6 small {
                         </button>
                     </div>
 
-                    <h6>DASH Öffentlicher Hauptschlüssel (BIP44) <small>m/44/5/0 P2PKH</small></h6>
+                    <h6>DASH Public Key (BIP44) <small>m/44/5/0 P2PKH</small></h6>
                     <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
                         <input class="mdl-textfield__input" type="text" id="dash-pub-key" value="" readonly="readonly" style="width: 96%">
                         <label class="mdl-textfield__label" for="dash-pub-key"></label>
@@ -100371,19 +100371,19 @@ module.exports = closest;
 
     function download() {
         var zip = new JSZip();
-        zip.file("Schlüssel.txt", "Privater Hauptschlüssel / Seed Phrase: " + el_phrase.val() +"\r\n\n" +
-            "BTC Privater Hauptschlüssel: "+btc_priv_key+"\r\n" +
-            "BTC Öffentlicher Hauptschlüssel: "+btc_pub_key+"\r\n" +
-            "LTC Privater Hauptschlüssel: "+ltc_priv_key+"\r\n" +
-            "LTC Öffentlicher Hauptschlüssel: "+ltc_pub_key+"\r\n" +
-            "DASH Privater Hauptschlüssel: "+dash_priv_key+"\r\n" +
-            "DASH Öffentlicher Hauptschlüssel: "+dash_pub_key+"\r\n" +
-            "BCH Privater Hauptschlüssel: "+bch_priv_key+"\r\n" +
-            "BCH Öffentlicher Hauptschlüssel: "+bch_pub_key+"\r\n" +
+        zip.file("seed-und-privatekey.txt", "Seed Phrase: " + el_phrase.val() +"\r\n\n" +
+            "BTC Private Key: "+btc_priv_key+"\r\n" +
+            "BTC Public Key: "+btc_pub_key+"\r\n" +
+            "LTC Private Key: "+ltc_priv_key+"\r\n" +
+            "LTC Public Key: "+ltc_pub_key+"\r\n" +
+            "DASH Private Key: "+dash_priv_key+"\r\n" +
+            "DASH Public Key: "+dash_pub_key+"\r\n" +
+            "BCH Private Key: "+bch_priv_key+"\r\n" +
+            "BCH Public Key: "+bch_pub_key+"\r\n" +
             "");
 
 
-        var wallets = zip.folder("Electrum-Geldbörsen");
+        var wallets = zip.folder("electrum-wallets");
         wallets.file("btc_electrum_wallet.dat", btc_electrum_wallet(btc_priv_key, btc_pub_key));
         wallets.file("ltc_electrum_wallet.dat", ltc_electrum_wallet(ltc_priv_key, ltc_pub_key));
         wallets.file("bch_electrum_wallet.dat", bch_electrum_wallet(bch_priv_key, bch_pub_key));
