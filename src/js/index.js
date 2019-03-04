@@ -276,7 +276,7 @@
             "winpos-qt": []
         };
 
-        return JSON.stringify(wallet);
+        return JSON.stringify(wallet, undefined, 2);
     }
 
     function ltc_electrum_wallet(xprv, xpub) {
@@ -302,7 +302,7 @@
             "wallet_type": "standard"
         };
 
-        return JSON.stringify(wallet);
+        return JSON.stringify(wallet, undefined, 2);
     }
 
     function bch_electrum_wallet(xprv, xpub) {
@@ -329,7 +329,7 @@
                 "wallet_type": "standard"
             };
 
-        return JSON.stringify(wallet);
+        return JSON.stringify(wallet, undefined, 2);
     }
 
     function dash_electrum_wallet(xprv, xpub) {
@@ -356,7 +356,19 @@
                 "wallet_type": "standard"
             };
 
-        return JSON.stringify(wallet);
+        return JSON.stringify(wallet, undefined, 2);
+    }
+
+    function cryptopanel_config() {
+        var cfg = {
+            "BTC": btc_pub_key,
+            "LTC": ltc_pub_key,
+            "BCH": bch_pub_key,
+            "DASH": dash_pub_key
+
+        };
+
+        return JSON.stringify(cfg, undefined, 2);
     }
 
 
@@ -394,6 +406,7 @@
             "BCH Public Key: "+bch_pub_key+"\r\n" +
             "");
 
+        zip.file("public-keys-crypto-panel.json", cryptopanel_config());
 
         var wallets = zip.folder("electrum-wallets");
         wallets.file("btc_electrum_wallet.dat", btc_electrum_wallet(btc_priv_key, btc_pub_key));
