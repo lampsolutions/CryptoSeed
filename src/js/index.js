@@ -256,6 +256,7 @@
                 "change": [],
                 "receiving": []
             },
+            "gap_limit": 100,
             "keystore": {
                 "pw_hash_version": 1,
                 "type": "bip32",
@@ -286,6 +287,7 @@
                 "change": [],
                 "receiving": []
             },
+            "gap_limit": 100,
             "keystore": {
                 "type": "bip32",
                 "xprv": xprv,
@@ -312,6 +314,7 @@
                     "change": [],
                     "receiving": []
                 },
+                "gap_limit": 100,
                 "keystore": {
                     "type": "bip32",
                     "xprv": xprv,
@@ -339,6 +342,7 @@
                     "change": [],
                     "receiving": []
                 },
+                "gap_limit": 100,
                 "keystore": {
                     "type": "bip32",
                     "xprv": xprv,
